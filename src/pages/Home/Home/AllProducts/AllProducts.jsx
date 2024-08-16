@@ -8,7 +8,7 @@ import ProductCard from "./ProductCard";
 const AllProducts = () => {
     const axiosPublic = useAxiosPublic();
     const { data: allProducts = [] } = useQuery({
-        queryKey: ['user'],
+        queryKey: ['allProducts'],
         queryFn: async () => {
             const res = await axiosPublic.get('/allProducts')
             return res.data
