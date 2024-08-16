@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { MdArrowForwardIos, MdOutlineArrowBackIos } from "react-icons/md";
 import useAxiosPublic from "../../../../hooks/useAxiosPublic";
+import ProductCard from "./ProductCard";
 
 
 const AllProducts = () => {
@@ -15,13 +16,13 @@ const AllProducts = () => {
     })
 
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10;
+    const itemsPerPage = 12;
     const totalPages = Math.ceil(allProducts.length / itemsPerPage);
 
     // Calculate the current items to display
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = contests.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = allProducts.slice(indexOfFirstItem, indexOfLastItem);
 
     const goToPage = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -51,7 +52,7 @@ const AllProducts = () => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
                 {
-                    currentItems.map((contest, index) => <ContestCard key={index} contest={contest}></ContestCard>)
+                    currentItems.map((product, index) => <ProductCard key={index} product={product}></ProductCard>)
                 }
             </div>
             <div className="md:flex justify-between items-center my-6 md:my-12 md:border border-dashed rounded-md px-3">
