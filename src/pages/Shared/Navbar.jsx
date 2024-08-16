@@ -1,8 +1,9 @@
 import { FaSearch, FaShoppingCart, FaUser } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     return (
-        <div className="navbar bg-gray-800 text-white fixed z-50 w-full shadow-lg">
+        <div className="navbar bg-gradient-to-r from-[#0677A1] to-[#0a8ebf] text-white fixed z-50 w-full shadow-lg">
 
             <div className='container mx-auto'>
                 <div className="navbar-start">
@@ -44,10 +45,12 @@ const Navbar = () => {
                     <button className="btn btn-ghost btn-circle">
                         <FaSearch className="h-5 w-5" />
                     </button>
-                    <button className="btn btn-outline btn-primary flex items-center">
-                        <FaUser className="h-5 w-5 mr-2" />
-                        Login
-                    </button>
+                    <Link to='/signIn'>
+                        <button className="btn btn-outline btn-primary flex items-center">
+                            <FaUser className="h-5 w-5 mr-2" />
+                            Sign In
+                        </button>
+                    </Link>
                 </div>
             </div>
         </div>

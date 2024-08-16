@@ -22,7 +22,7 @@ const ProductCard = ({ product }) => {
                     </h2>
                 </div>
                 <p className='h-16'>{description.slice(0,80)}...</p>
-                <Link to={`/contestDetails/${_id}`}>
+                <Link to={`/productDetails/${_id}`}>
                     <button className="flex btn w-full bg-transparent text-[#0677A1] border-0 font-bold hover:bg-[#0677A1] hover:text-white items-center gap-2 group">
                         View Details
                         <span className="hidden group-hover:flex text-xl animate__animated animate__fadeInLeft">
