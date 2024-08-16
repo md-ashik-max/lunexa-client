@@ -3,16 +3,16 @@ import { FaAngleDoubleRight } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
 const ProductCard = ({ product }) => {
-    const { product_name,description,_id } = product;
+    const { product_name,description,_id,price } = product;
     return (
         <div className="card bg-base-100 shadow-xl border-2">
             <div className="relative group">
                 <figure className="overflow-hidden h-64"><img className="h-full w-full rounded-t-xl hover:scale-150 transition duration-500 cursor-pointer object-cover" src="https://i.ibb.co/85ThMmT/Graphic-Design.webp" alt="" /></figure>
-                <h3
+                {/* <h3
                     className="absolute bottom-0 text-xl font-bold text-white bg-[#0677A1] p-6 w-full hidden group-hover:flex animate__animated animate__zoomIn"
                 >
                     A way of feeling
-                </h3>
+                </h3> */}
             </div>
 
             <div className="card-body">
@@ -21,6 +21,7 @@ const ProductCard = ({ product }) => {
                         {product_name}
                     </h2>
                 </div>
+                <h3 className='text-xl font-bold'>Price : ${price}</h3>
                 <p className='h-16'>{description.slice(0,80)}...</p>
                 <Link to={`/productDetails/${_id}`}>
                     <button className="flex btn w-full bg-transparent text-[#0677A1] border-0 font-bold hover:bg-[#0677A1] hover:text-white items-center gap-2 group">

@@ -71,16 +71,23 @@ const AllProducts = () => {
                     onChange={(e) => setSelectedBrand(e.target.value)}
                 >
                     <option value="">All Brands</option>
-                    <option value="Dell">Dell</option>
+                    <option value="Apple">Apple</option>
                     <option value="Samsung">Samsung</option>
+                    <option value="Dell">Dell</option>
                     <option value="LG">LG</option>
                     <option value="Google">Google</option>
                     <option value="Sony">Sony</option>
-                    <option value="Apple">Apple</option>
-                    <option value="Apple">Apple</option>
-                    <option value="Apple">Apple</option>
-                    <option value="Apple">Apple</option>
-                    <option value="Apple">Apple</option>
+                    <option value="Microsoft">Microsoft</option>
+                    <option value="HP">HP</option>
+                    <option value="Ring">Ring</option>
+                    <option value="Razer">Razer</option>
+                    <option value="Asus">Asus</option>
+                    <option value="Eufy">Eufy</option>
+                    <option value="Bose">Bose</option>
+                    <option value="Garmin">Garmin</option>
+                    <option value="Canon">Canon</option>
+                    <option value="Anker">Anker</option>
+                    <option value="DJI">DJI</option>
                 </select>
 
                 {/* Filter by Category */}
@@ -90,9 +97,20 @@ const AllProducts = () => {
                 >
                     <option value="">All Categories</option>
                     <option value="Laptops">Laptops</option>
-                    <option value="Desktops">Desktops</option>
-                    <option value="Monitors">Monitors</option>
-                    {/* Add more categories as needed */}
+                    <option value="Smartphones">Smartphones</option>
+                    <option value="Audio">Audio</option>
+                    <option value="Cameras">Cameras</option>
+                    <option value="Wearables">Wearables</option>
+                    <option value="Smart Home">Smart Home</option>
+                    <option value="Televisions">Televisions</option>
+                    <option value="Gaming Consoles">Gaming Consoles</option>
+                    <option value="Personal Care">Personal Care</option>
+                    <option value="Kitchen Appliances">Kitchen Appliances</option>
+                    <option value="Accessories">Accessories</option>
+                    <option value="E-Readers">E-Readers</option>
+                    <option value="Gaming Accessories">Gaming Accessories</option>
+                    <option value="Drones">Drones</option>
+                    <option value="Camera Accessories">Camera Accessories</option>
                 </select>
 
                 {/* Filter by Price Range */}

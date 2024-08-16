@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { FaSearch } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider';
 import { CgLogOut } from "react-icons/cg";
 
@@ -57,10 +57,10 @@ const Navbar = () => {
                         <ul
                             tabIndex={0}
                             className="menu menu-sm dropdown-content bg-gray-800 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                            <li><a href="/">Home</a></li>
-                            <li><a href="/about">About Us</a></li>
-                            <li><a href="/products">Products</a></li>
-                            <li><a href="/contact">Contact Us</a></li>
+                            <li><NavLink to='/'>Home</NavLink></li>
+                            <li><a>About Us</a></li>
+                            <li><a>Products</a></li>
+                            <li><a>Contact Us</a></li>
                         </ul>
                     </div>
                 </div>
