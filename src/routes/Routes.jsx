@@ -6,6 +6,7 @@ import Main from "../layout/Main";
 import SignIn from "../pages/SignIn/SignIn";
 import PrivetRoute from "./PrivetRoute";
 import ProductDetails from "../pages/ProductDetails/ProductDetails";
+import SignUp from "../pages/SignUp/SignUp";
 
 
   export const router = createBrowserRouter([
@@ -21,6 +22,10 @@ import ProductDetails from "../pages/ProductDetails/ProductDetails";
         {
           path:'/signIn',
           element:<SignIn></SignIn>
+        },
+        {
+          path:'/signUp',
+          element:<SignUp></SignUp>
         },
         {
           path:'/productDetails/:id',
