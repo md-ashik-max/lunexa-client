@@ -12,7 +12,7 @@ const Banner = () => {
 
     // Select status dynamically (e.g., popular or upcoming)
     const status ='Popular';
-    console.log('Selected Status:', status);
+    // console.log('Selected Status:', status);
 
     const { data: bannerProducts = [] } = useQuery({
         queryKey: ['bannerProduct', status],
@@ -21,7 +21,7 @@ const Banner = () => {
             return res.data;
         }
     });
-    console.log(bannerProducts)
+    // console.log(bannerProducts)
 
     const shouldLoop = bannerProducts.length > 1;  // Only loop if more than 1 slide
 

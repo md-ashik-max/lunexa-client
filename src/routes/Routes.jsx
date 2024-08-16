@@ -29,7 +29,8 @@ import SignUp from "../pages/SignUp/SignUp";
         },
         {
           path:'/productDetails/:id',
-          element:<PrivetRoute><ProductDetails></ProductDetails></PrivetRoute>
+          element:<PrivetRoute><ProductDetails></ProductDetails></PrivetRoute>,
+          loader: ({ params }) => fetch(`http://localhost:5000/product/${params.id}`)
         }
       ]
 

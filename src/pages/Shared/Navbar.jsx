@@ -1,7 +1,39 @@
-import { FaSearch, FaShoppingCart, FaUser } from 'react-icons/fa';
+import { useContext } from 'react';
+import { FaSearch } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../providers/AuthProvider';
+import { CgLogOut } from "react-icons/cg";
 
 const Navbar = () => {
+    const { user, logOut } = useContext(AuthContext);
+    // console.log(user.displayName)
+
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => {
+                Swal.fire({
+                    title: "Log Out Successfully",
+                    showClass: {
+                        popup: `
+                    animate__animated
+                    animate__fadeInUp
+                    animate__faster
+                  `
+                    },
+                    hideClass: {
+                        popup: `
+                    animate__animated
+                    animate__fadeOutDown
+                    animate__faster
+                  `
+                    }
+                });
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
     return (
         <div className="navbar bg-gradient-to-r from-[#0677A1] to-[#0a8ebf] text-white fixed z-50 w-full shadow-lg">
 
@@ -50,31 +82,14 @@ const Navbar = () => {
                             <div tabIndex={0} role="button"><img className="w-14 h-14 rounded-full" src={user?.photoURL} alt="" /></div>
                             <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 space-y-4 flex flex-col items-center">
                                 <img className="w-14 h-14 rounded-full" src={user?.photoURL} alt="" />
-                                <h3 className="text-xl font-bold">{user?.displayName}</h3>
-                                <Link to='/dashboard/leaderBoard'>
-                                    <li><button className="flex items-center font-bold bg-transparent hover:text-[#0677A1]"><GiLaurelsTrophy />  LeaderBoard</button></li>
-                                </Link>
-                                {
-                                    isAdmin ?
-                                        <Link to='/dashboard/adminHome'>
-                                            <li><button className="font-bold bg-transparent hover:text-[#0677A1]"><MdDashboardCustomize /> Dashboard</button></li>
-                                        </Link>
-                                        :
-                                        isCreator ? <Link to='/dashboard/creatorHome'>
-                                            <li><button className="flex items-center font-bold bg-transparent hover:text-[#0677A1]"><MdDashboardCustomize /> Dashboard</button></li>
-                                        </Link>
-                                            :
-                                            <Link to='/dashboard/userProfile'>
-                                                <li><button className="flex items-center font-bold bg-transparent hover:text-[#0677A1]"><MdDashboardCustomize /> Dashboard</button></li>
-                                            </Link>
-                                }
+                                <h3 className="text-xl font-bold text-black">{user.displayName}</h3>
                                 <li> <button onClick={handleLogOut} className="flex items-center text-black font-bold hover:text-red-600">Log Out <CgLogOut className="text-xl font-bold"></CgLogOut></button></li>
                             </ul>
                         </div>
                     </>
                         :
                         <Link to='/signIn'>
-                            <button className="btn md:text-lg font-bold text-[#0677A1] bg-transparent border-2 border-[#0677A1] hover:text-white hover:bg-[#0677A1]">Sign In</button>
+                            <button className="btn md:text-lg font-bold hover:bg-transparent border-2 border-[#0677A1] text-white bg-[#0677A1]">Sign In</button>
                         </Link>
                     }
                 </div>
