@@ -66,17 +66,20 @@ const Navbar = () => {
                 </div>
 
 
-                <div className="navbar-center">
-                    <a href="/" className="btn btn-ghost normal-case text-2xl font-bold">
+                <div className="navbar-center flex">
+                    <img className='w-12' src="https://i.ibb.co/GWkYHmd/icons8-l-96.png" alt="l" />
+                    <a href="/" className="btn btn-ghost normal-case text-3xl font-bold">
                         Lunexa
                     </a>
                 </div>
 
 
                 <div className="navbar-end flex items-center space-x-4">
+                    <Link to='/search'>
                     <button className="btn btn-ghost btn-circle">
                         <FaSearch className="h-5 w-5" />
                     </button>
+                    </Link>
                     {user ? <>
                         <div className="dropdown dropdown-end">
                             <div tabIndex={0} role="button"><img className="w-14 h-14 rounded-full" src={user?.photoURL} alt="" /></div>
