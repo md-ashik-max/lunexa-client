@@ -1,7 +1,7 @@
 import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../firebase/firebase.config";
-import { signInWithRedirect } from "firebase/auth";
+// import { signInWithRedirect } from "firebase/auth";
 
 
 export const AuthContext = createContext(null)
@@ -21,13 +21,13 @@ const AuthProvider = ({ children }) => {
         return signInWithEmailAndPassword(auth, email, password)
     }
 
-    const googleLogin = () => {
-        return signInWithRedirect(auth, googleProvider);
-    }
-
     // const googleLogin = () => {
-    //     return signInWithPopup(auth, googleProvider)
+    //     return signInWithRedirect(auth, googleProvider);
     // }
+
+    const googleLogin = () => {
+        return signInWithPopup(auth, googleProvider)
+    }
 
 
     const updateUserProfile = (name, image) => {

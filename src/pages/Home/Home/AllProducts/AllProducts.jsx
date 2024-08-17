@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 import { MdArrowForwardIos, MdOutlineArrowBackIos } from "react-icons/md";
 import useAxiosPublic from "../../../../hooks/useAxiosPublic";
@@ -7,6 +6,7 @@ import ProductCard from "./ProductCard";
 const AllProducts = () => {
     const axiosPublic = useAxiosPublic();
     const [allProducts, setAllProducts] = useState([]);
+    const [filteredProducts, setFilteredProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 12;
 
@@ -15,27 +15,59 @@ const AllProducts = () => {
     const [selectedPriceRange, setSelectedPriceRange] = useState('');
     const [sortOrder, setSortOrder] = useState('');
 
-    const fetchProducts = async () => {
+    const fetchProductsByCategory = async () => {
         let url = '/allProducts';
-
-        if (selectedBrand) url = `/products/brand/${selectedBrand}`;
-        if (selectedCategory) url = `/products/category/${selectedCategory}`;
-        if (selectedPriceRange) url = `/products/price/${selectedPriceRange}`;
-        if (sortOrder) url = `/products/sort/${sortOrder}`;
+        if (selectedCategory) {
+            url = `/products/category/${selectedCategory}`;
+        }
 
         const { data } = await axiosPublic.get(url);
         setAllProducts(data);
+        setFilteredProducts(data); // Initialize filteredProducts with all category products
     };
 
     useEffect(() => {
-        fetchProducts();
-    }, [selectedBrand, selectedCategory, selectedPriceRange, sortOrder]);
+        fetchProductsByCategory();
+    }, [selectedCategory]);
 
-    const totalPages = Math.ceil(allProducts.length / itemsPerPage);
+    useEffect(() => {
+        let tempProducts = [...allProducts];
+
+        // Apply brand filter
+        if (selectedBrand) {
+            tempProducts = tempProducts.filter(product => product.brand === selectedBrand);
+        }
+
+        // Apply price range filter
+        if (selectedPriceRange) {
+            if (selectedPriceRange === 'low') {
+                tempProducts = tempProducts.filter(product => product.price < 500);
+            } else if (selectedPriceRange === 'mid') {
+                tempProducts = tempProducts.filter(product => product.price >= 500 && product.price <= 1000);
+            } else if (selectedPriceRange === 'high') {
+                tempProducts = tempProducts.filter(product => product.price > 1000);
+            }
+        }
+
+        // Apply sorting
+        if (sortOrder) {
+            if (sortOrder === 'priceLowHigh') {
+                tempProducts.sort((a, b) => a.price - b.price);
+            } else if (sortOrder === 'priceHighLow') {
+                tempProducts.sort((a, b) => b.price - a.price);
+            } else if (sortOrder === 'newest') {
+                tempProducts.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
+            }
+        }
+
+        setFilteredProducts(tempProducts);
+    }, [selectedBrand, selectedPriceRange, sortOrder, allProducts]);
+
+    const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = allProducts.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = filteredProducts.slice(indexOfFirstItem, indexOfLastItem);
 
     const goToPage = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -65,6 +97,32 @@ const AllProducts = () => {
             </div>
 
             <div className="my-8 flex flex-wrap gap-4 justify-center">
+                {/* Filter by Category */}
+                <select
+                    className="border border-gray-300 px-4 py-2 rounded-md focus:ring focus:ring-pink-300 transition duration-200"
+                    onChange={(e) => {
+                        setSelectedCategory(e.target.value);
+                        setCurrentPage(1); // Reset to page 1 on category change
+                    }}
+                >
+                    <option value="">All Categories</option>
+                    <option value="Laptops">Laptops</option>
+                    <option value="Smartphones">Smartphones</option>
+                    <option value="Audio">Audio</option>
+                    <option value="Cameras">Cameras</option>
+                    <option value="Wearables">Wearables</option>
+                    <option value="Smart Home">Smart Home</option>
+                    <option value="Televisions">Televisions</option>
+                    <option value="Gaming Consoles">Gaming Consoles</option>
+                    <option value="Personal Care">Personal Care</option>
+                    <option value="Kitchen Appliances">Kitchen Appliances</option>
+                    <option value="Accessories">Accessories</option>
+                    <option value="E-Readers">E-Readers</option>
+                    <option value="Gaming Accessories">Gaming Accessories</option>
+                    <option value="Drones">Drones</option>
+                    <option value="Camera Accessories">Camera Accessories</option>
+                </select>
+
                 {/* Filter by Brand */}
                 <select
                     className="border border-gray-300 px-4 py-2 rounded-md focus:ring focus:ring-pink-300 transition duration-200"
@@ -88,29 +146,6 @@ const AllProducts = () => {
                     <option value="Canon">Canon</option>
                     <option value="Anker">Anker</option>
                     <option value="DJI">DJI</option>
-                </select>
-
-                {/* Filter by Category */}
-                <select
-                    className="border border-gray-300 px-4 py-2 rounded-md focus:ring focus:ring-pink-300 transition duration-200"
-                    onChange={(e) => setSelectedCategory(e.target.value)}
-                >
-                    <option value="">All Categories</option>
-                    <option value="Laptops">Laptops</option>
-                    <option value="Smartphones">Smartphones</option>
-                    <option value="Audio">Audio</option>
-                    <option value="Cameras">Cameras</option>
-                    <option value="Wearables">Wearables</option>
-                    <option value="Smart Home">Smart Home</option>
-                    <option value="Televisions">Televisions</option>
-                    <option value="Gaming Consoles">Gaming Consoles</option>
-                    <option value="Personal Care">Personal Care</option>
-                    <option value="Kitchen Appliances">Kitchen Appliances</option>
-                    <option value="Accessories">Accessories</option>
-                    <option value="E-Readers">E-Readers</option>
-                    <option value="Gaming Accessories">Gaming Accessories</option>
-                    <option value="Drones">Drones</option>
-                    <option value="Camera Accessories">Camera Accessories</option>
                 </select>
 
                 {/* Filter by Price Range */}
@@ -144,7 +179,7 @@ const AllProducts = () => {
 
             <div className="md:flex justify-between items-center my-6 md:my-12 md:border border-dashed rounded-md px-3">
                 <span>
-                    Showing {indexOfFirstItem + 1} to {indexOfLastItem} of {allProducts.length}
+                    Showing {indexOfFirstItem + 1} to {indexOfLastItem} of {filteredProducts.length}
                 </span>
                 <div className="flex items-center my-4">
                     <button
