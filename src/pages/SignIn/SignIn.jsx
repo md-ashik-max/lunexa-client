@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { ToastContainer, toast } from "react-toastify";
-import { FaGoogle, FaFacebookF } from "react-icons/fa";
+import { FaGoogle } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
 import { AiFillEyeInvisible } from "react-icons/ai";
 
@@ -48,36 +48,53 @@ const SignIn = () => {
                 const userInfo = {
                     email: result.user?.email,
                     name: result.user?.displayName
-                }
-                axiosPublic.post('/users', userInfo)
-                    .then(res => {
-                        if (res.data.insertedId) {
-                            navigate('/')
-                            Swal.fire({
-                                title: "Created user successfully",
-                                showClass: {
-                                    popup: `animate__animated animate__fadeInUp animate__faster`
-                                },
-                                hideClass: {
-                                    popup: `animate__animated animate__fadeOutDown animate__faster`
-                                }
-                            });
-                        } else {
-                            navigate('/')
-                            Swal.fire({
-                                title: "Logged in user successfully",
-                                showClass: {
-                                    popup: `animate__animated animate__fadeInUp animate__faster`
-                                },
-                                hideClass: {
-                                    popup: `animate__animated animate__fadeOutDown animate__faster`
-                                }
-                            });
-
-                        }
-                    })
+                };
+                console.log(userInfo);
+                
+                // Make the POST request to save the user data
+                return axiosPublic.post('/users', userInfo);
             })
-    }
+            .then(res => {
+                if (res.data.insertedId) {
+                    navigate('/');
+                    Swal.fire({
+                        title: "Created user successfully",
+                        showClass: {
+                            popup: 'animate__animated animate__fadeInUp animate__faster'
+                        },
+                        hideClass: {
+                            popup: 'animate__animated animate__fadeOutDown animate__faster'
+                        }
+                    });
+                } else {
+                    navigate('/');
+                    Swal.fire({
+                        title: "Logged in user successfully",
+                        showClass: {
+                            popup: 'animate__animated animate__fadeInUp animate__faster'
+                        },
+                        hideClass: {
+                            popup: 'animate__animated animate__fadeOutDown animate__faster'
+                        }
+                    });
+                }
+            })
+            .catch(error => {
+                console.error("Error during Google login or user creation:", error);
+                Swal.fire({
+                    title: "Error",
+                    text: "Something went wrong. Please try again.",
+                    icon: "error",
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInUp animate__faster'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutDown animate__faster'
+                    }
+                });
+            });
+    };
+    
 
     if (user || loading) return;
 

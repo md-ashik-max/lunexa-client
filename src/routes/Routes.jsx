@@ -31,7 +31,7 @@ import Search from "../pages/Search/Search";
         {
           path:'/productDetails/:id',
           element:<PrivetRoute><ProductDetails></ProductDetails></PrivetRoute>,
-          loader: ({ params }) => fetch(`http://localhost:5000/product/${params.id}`)
+          loader: ({ params }) => fetch(`https://lunexa-server.vercel.app/product/${params.id}`)
         },
         {
           path:'/search',
