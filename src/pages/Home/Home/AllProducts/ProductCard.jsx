@@ -3,16 +3,11 @@ import { FaAngleDoubleRight } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
 const ProductCard = ({ product }) => {
-    const { product_name,description,_id,price } = product;
+    const { product_name,description,_id,price ,image_url} = product;
     return (
         <div className="card bg-base-100 shadow-xl border-2">
             <div className="relative group">
-                <figure className="overflow-hidden h-64"><img className="h-full w-full rounded-t-xl hover:scale-150 transition duration-500 cursor-pointer object-cover" src="https://i.ibb.co/85ThMmT/Graphic-Design.webp" alt="" /></figure>
-                {/* <h3
-                    className="absolute bottom-0 text-xl font-bold text-white bg-[#0677A1] p-6 w-full hidden group-hover:flex animate__animated animate__zoomIn"
-                >
-                    A way of feeling
-                </h3> */}
+                <figure className="overflow-hidden h-64"><img className="h-full w-full rounded-t-xl hover:scale-150 transition duration-500 cursor-pointer object-cover" src={image_url} alt="" /></figure>
             </div>
 
             <div className="card-body">

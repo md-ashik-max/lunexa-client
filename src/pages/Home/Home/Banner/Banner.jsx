@@ -64,7 +64,7 @@ const Banner = () => {
                     <SwiperSlide key={index}>
                         <div className="relative w-full h-[700px] flex items-center justify-center">
                             <img
-                                src={product.image || "https://i.ibb.co/85ThMmT/Graphic-Design.webp"}
+                                src={product.image_url || "https://i.ibb.co/85ThMmT/Graphic-Design.webp"}
                                 alt={product.product_name}
                                 className="w-full h-full object-cover rounded-lg"
                             />

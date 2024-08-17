@@ -7,7 +7,7 @@ const ProductDetails = () => {
 
     return (
         <div className="max-w-7xl pt-24 mb-24 mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-            <img src={product.image_url} alt={product.product_name} className="w-full h-64 object-cover" />
+            <img src={product.image_url} alt={product.product_name} className="w-full h-[500px] object-cover" />
             <div className="p-6">
                 <h2 className="text-2xl font-semibold text-gray-800">{product.product_name}</h2>
                 <p className="mt-2 text-gray-600">{product.description}</p>
